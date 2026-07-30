@@ -1,0 +1,430 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Icon from "../components/Icon.astro";
+
+const waFor = (product: string) =>
+  `https://wa.me/21628897456?text=${encodeURIComponent(
+    `Bonjour, je suis intéressé(e) par : ${product}. Est-il disponible ?`
+  )}`;
+
+const parfums = [
+  {
+    name: "Parfum VIF #TAG Édition Femme",
+    desc: "Un sillage floral et ambré, pensé pour une femme affirmée qui aime marquer son passage.",
+    img: "/images/produit-parfum-vif-tag-femme.png",
+  },
+  {
+    name: "Parfum VIF #TAG Édition Homme",
+    desc: "Une fragrance boisée et intense, la signature masculine de VIF #TAG.",
+    img: "/images/produit-parfum-vif-tag-homme.png",
+  },
+];
+
+const soins = [
+  {
+    name: "Gel Douche / Soin du Corps",
+    desc: "Un gel douche onctueux qui nettoie en douceur et laisse la peau délicatement parfumée.",
+    img: "/images/produit-gel-douche-corps.png",
+  },
+  {
+    name: "Lotion Corporelle",
+    desc: "Une lotion légère et hydratante pour une peau douce, souple et parfumée toute la journée.",
+    img: "/images/produit-lotion-corporelle.png",
+  },
+];
+
+const maquillage = [
+  {
+    name: "Lip Gloss VIF — Teinte B03",
+    desc: "Une teinte nude rosée, brillance miroir, pour une bouche sublimée au naturel.",
+    img: "/images/produit-lipgloss-vif-b03.png",
+    swatch: "#c98f7b",
+  },
+  {
+    name: "Lip Gloss VIF — Teinte M03",
+    desc: "Un rose profond et lumineux, pour un effet glossy et une tenue longue durée.",
+    img: "/images/produit-lipgloss-vif-m03.png",
+    swatch: "#a83e5a",
+  },
+];
+---
+
+<Layout
+  title="Boutique — Nedra Bellahmer | Parfums, Maquillage, Soins & Coffrets"
+  description="Découvrez la sélection Nedra Bellahmer : coffrets cadeaux, parfums VIF #TAG, soins du corps et maquillage — à commander sur WhatsApp."
+  path="/produits"
+>
+  <header class="shop-header">
+    <div class="container shop-header__inner reveal">
+      <span class="eyebrow">La boutique</span>
+      <h1>Nos produits</h1>
+      <p>
+        Une sélection resserrée, choisie avec soin — parfums, maquillage, soins du corps
+        et coffrets prêts à offrir. Chaque commande se fait simplement, par message.
+      </p>
+    </div>
+    <nav class="shop-quicknav reveal reveal-delay-1" aria-label="Catégories">
+      <a href="#coffrets"><Icon name="gift" size={15} /> Coffrets</a>
+      <a href="#parfums"><Icon name="perfume" size={15} /> Parfums</a>
+      <a href="#soins"><Icon name="droplet" size={15} /> Soins du corps</a>
+      <a href="#maquillage"><Icon name="sparkles" size={15} /> Maquillage</a>
+    </nav>
+  </header>
+
+  <!-- COFFRET — signature full-bleed showcase -->
+  <section class="showcase" id="coffrets">
+    <div class="showcase__image reveal">
+      <img src="/images/lifestyle-coffret-prestige.jpg" alt="Coffret Cadeau Prestige Nedra Bellahmer" />
+    </div>
+    <div class="showcase__text reveal reveal-delay-1">
+      <span class="eyebrow"><Icon name="gift" size={14} /> Coffrets cadeaux</span>
+      <h2>Coffret Cadeau Prestige</h2>
+      <p>
+        Un rituel de beauté clé en main : un soin du corps et un parfum réunis dans un
+        écrin ruban, prêt à offrir. L'idée cadeau élégante pour toutes les occasions.
+      </p>
+      <div class="showcase__actions">
+        <a class="btn btn-primary" href={waFor("Coffret Cadeau Prestige")} target="_blank" rel="noopener noreferrer">
+          <Icon name="send" size={16} /> Commander sur WhatsApp
+        </a>
+        <span class="showcase__note">Disponible sur commande</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARFUMS -->
+  <section class="category" id="parfums">
+    <div class="container">
+      <div class="category__head reveal">
+        <span class="eyebrow"><Icon name="perfume" size={14} /> Parfums</span>
+        <h2>VIF <em>#TAG</em></h2>
+        <p>Deux sillages signature — l'un floral, l'autre boisé — pour marquer chaque entrée.</p>
+      </div>
+      <div class="duo">
+        {
+          parfums.map((p, i) => (
+            <article class:list={["product-card", "reveal", i === 1 && "reveal-delay-1"]}>
+              <div class="product-card__image">
+                <img src={p.img} alt={p.name} loading="lazy" />
+              </div>
+              <h3>{p.name}</h3>
+              <p>{p.desc}</p>
+              <a class="product-card__cta" href={waFor(p.name)} target="_blank" rel="noopener noreferrer">
+                Commander sur WhatsApp <Icon name="arrow-right" size={14} />
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- SOINS DU CORPS -->
+  <section class="category category--alt" id="soins">
+    <div class="container">
+      <div class="category__head reveal">
+        <span class="eyebrow"><Icon name="droplet" size={14} /> Soins du corps</span>
+        <h2>Rituels de douceur</h2>
+        <p>Des textures onctueuses pour une peau nourrie et délicatement parfumée.</p>
+      </div>
+      <div class="duo">
+        {
+          soins.map((p, i) => (
+            <article class:list={["product-card", "reveal", i === 1 && "reveal-delay-1"]}>
+              <div class="product-card__image">
+                <img src={p.img} alt={p.name} loading="lazy" />
+              </div>
+              <h3>{p.name}</h3>
+              <p>{p.desc}</p>
+              <a class="product-card__cta" href={waFor(p.name)} target="_blank" rel="noopener noreferrer">
+                Commander sur WhatsApp <Icon name="arrow-right" size={14} />
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- MAQUILLAGE -->
+  <section class="category" id="maquillage">
+    <div class="container">
+      <div class="category__head reveal">
+        <span class="eyebrow"><Icon name="sparkles" size={14} /> Maquillage</span>
+        <h2>Lip Gloss VIF</h2>
+        <p>Deux teintes, deux caractères — pour une bouche sublimée en un geste.</p>
+      </div>
+      <div class="duo">
+        {
+          maquillage.map((p, i) => (
+            <article class:list={["product-card", "reveal", i === 1 && "reveal-delay-1"]}>
+              <div class="product-card__image">
+                <img src={p.img} alt={p.name} loading="lazy" />
+                <span class="product-card__swatch" style={`background:${p.swatch}`} aria-hidden="true" />
+              </div>
+              <h3>{p.name}</h3>
+              <p>{p.desc}</p>
+              <a class="product-card__cta" href={waFor(p.name)} target="_blank" rel="noopener noreferrer">
+                Commander sur WhatsApp <Icon name="arrow-right" size={14} />
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="closing-cta">
+    <div class="container closing-cta__inner reveal">
+      <h2>Vous ne trouvez pas ce que vous cherchez ?</h2>
+      <p>Écrivez-nous, nous vous conseillons selon vos envies.</p>
+      <a class="btn btn-primary" href="/contact">
+        Nous contacter <Icon name="arrow-right" size={16} />
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .shop-header {
+    padding: 64px 24px 0;
+  }
+  .shop-header__inner {
+    max-width: 620px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+  .shop-header__inner h1 {
+    font-size: clamp(2.2rem, 7vw, 3rem);
+  }
+  .shop-header__inner p {
+    color: var(--ink-soft);
+    font-size: 15.5px;
+    line-height: 1.75;
+  }
+  .shop-quicknav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 36px auto 0;
+    padding: 0 24px 28px;
+    max-width: var(--container);
+  }
+  .shop-quicknav a {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 18px;
+    border: 1px solid var(--line);
+    border-radius: 30px;
+    font-size: 12.5px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--ink-soft);
+    transition: all 0.2s ease;
+  }
+  .shop-quicknav a:hover {
+    border-color: var(--accent);
+    color: var(--accent-dark);
+  }
+  .shop-quicknav svg {
+    color: var(--gold);
+  }
+
+  /* SHOWCASE */
+  .showcase {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin-top: 20px;
+  }
+  .showcase__image img {
+    width: 100%;
+    height: 100%;
+    min-height: 320px;
+    object-fit: cover;
+  }
+  .showcase__text {
+    background: var(--ink);
+    color: var(--white);
+    padding: 56px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  .showcase__text .eyebrow {
+    color: var(--gold-light);
+  }
+  .showcase__text .eyebrow::before {
+    background: var(--gold-light);
+  }
+  .showcase__text h2 {
+    color: var(--white);
+    font-size: clamp(1.9rem, 6vw, 2.6rem);
+  }
+  .showcase__text p {
+    color: #cfc3b4;
+    font-size: 15px;
+    line-height: 1.8;
+    max-width: 42ch;
+  }
+  .showcase__actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 6px;
+  }
+  .showcase__note {
+    font-size: 12px;
+    color: #a99a86;
+    letter-spacing: 0.03em;
+  }
+
+  @media (min-width: 860px) {
+    .showcase {
+      grid-template-columns: 1.1fr 1fr;
+      min-height: 560px;
+    }
+    .showcase__text {
+      padding: 56px 72px;
+    }
+  }
+
+  /* CATEGORY */
+  .category {
+    padding: 88px 24px;
+  }
+  .category--alt {
+    background: var(--bg-alt);
+  }
+  .category__head {
+    max-width: 540px;
+    margin: 0 auto 48px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .category__head h2 {
+    font-size: clamp(1.9rem, 6vw, 2.4rem);
+  }
+  .category__head h2 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .category__head p {
+    color: var(--ink-soft);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .duo {
+    max-width: var(--container);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  @media (min-width: 680px) {
+    .duo {
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+  }
+
+  .product-card {
+    background: var(--white);
+    border: 1px solid var(--line);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .product-card__image {
+    position: relative;
+    background: var(--bg-alt);
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  .product-card__image img {
+    width: 78%;
+    height: 78%;
+    object-fit: contain;
+    transition: transform 0.5s ease;
+  }
+  .product-card:hover .product-card__image img {
+    transform: scale(1.05);
+  }
+  .product-card__swatch {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid var(--white);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+  }
+  .product-card h3 {
+    font-size: 20px;
+    font-weight: 600;
+  }
+  .product-card p {
+    color: var(--ink-soft);
+    font-size: 14px;
+    line-height: 1.7;
+    flex: 1;
+  }
+  .product-card__cta {
+    margin-top: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent-dark);
+    width: fit-content;
+    padding-bottom: 3px;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s ease;
+  }
+  .product-card__cta:hover {
+    border-color: var(--accent-dark);
+  }
+
+  /* CLOSING CTA (shared look) */
+  .closing-cta {
+    background: var(--ink);
+    padding: 90px 24px;
+  }
+  .closing-cta__inner {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  .closing-cta__inner h2 {
+    color: var(--white);
+    font-size: clamp(1.9rem, 6vw, 2.4rem);
+  }
+  .closing-cta__inner p {
+    color: #cfc3b4;
+    font-size: 15px;
+  }
+</style>

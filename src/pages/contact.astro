@@ -1,0 +1,263 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Icon from "../components/Icon.astro";
+
+const waHref = `https://wa.me/21628897456?text=${encodeURIComponent("Bonjour, je vous contacte depuis votre site")}`;
+---
+
+<Layout
+  title="Contact — Nedra Bellahmer"
+  description="Contactez Nedra Bellahmer par téléphone, WhatsApp ou message pour toute question sur nos parfums, maquillage, soins et coffrets cadeaux."
+  path="/contact"
+>
+  <header class="page-header">
+    <div class="container page-header__inner reveal">
+      <span class="eyebrow">Contact</span>
+      <h1>Parlons beauté</h1>
+      <p>Une question, une envie de conseil personnalisé ? Nous sommes à votre écoute.</p>
+    </div>
+  </header>
+
+  <section class="contact container">
+    <div class="contact__info">
+      <div class="info-block reveal">
+        <div class="info-block__icon"><Icon name="phone" size={19} /></div>
+        <div>
+          <h3>Téléphone</h3>
+          <a href="tel:+21628897456">+216 28 897 456</a>
+        </div>
+      </div>
+
+      <div class="info-block reveal reveal-delay-1">
+        <div class="info-block__icon"><Icon name="send" size={19} /></div>
+        <div>
+          <h3>WhatsApp</h3>
+          <p>Le moyen le plus rapide pour commander ou poser une question.</p>
+          <a class="btn btn-primary btn-sm" href={waHref} target="_blank" rel="noopener noreferrer">
+            Discuter sur WhatsApp <Icon name="arrow-right" size={14} />
+          </a>
+        </div>
+      </div>
+
+      <div class="info-block reveal reveal-delay-2">
+        <div class="info-block__icon"><Icon name="clock" size={19} /></div>
+        <div>
+          <h3>Horaires</h3>
+          <p class="muted-note">Horaires d'ouverture à confirmer avec la cliente.</p>
+        </div>
+      </div>
+
+      <div class="info-block reveal reveal-delay-3">
+        <div class="info-block__icon"><Icon name="map-pin" size={19} /></div>
+        <div>
+          <h3>Zone de livraison</h3>
+          <p>Livraison disponible partout en Tunisie, sur commande.</p>
+        </div>
+      </div>
+
+      <div class="info-block reveal">
+        <div class="info-block__icon"><Icon name="facebook" size={19} /></div>
+        <div>
+          <h3>Facebook</h3>
+          <a href="https://www.facebook.com/nedra.superviseurcl" target="_blank" rel="noopener noreferrer">
+            nedra.superviseurcl
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact__form reveal reveal-delay-2">
+      <h2>Envoyez-nous un message</h2>
+      <p class="form-note">
+        Formulaire de démonstration (sans envoi réel) — pour une réponse rapide, écrivez-nous
+        directement sur WhatsApp.
+      </p>
+
+      <form id="contact-form">
+        <div class="field">
+          <label for="name">Nom complet</label>
+          <input type="text" id="name" name="name" placeholder="Votre nom" required />
+        </div>
+        <div class="field">
+          <label for="phone">Téléphone</label>
+          <input type="tel" id="phone" name="phone" placeholder="+216 ..." required />
+        </div>
+        <div class="field">
+          <label for="product">Produit souhaité</label>
+          <select id="product" name="product">
+            <option>Coffret Cadeau Prestige</option>
+            <option>Parfum VIF #TAG Édition Femme</option>
+            <option>Parfum VIF #TAG Édition Homme</option>
+            <option>Gel Douche / Soin du Corps</option>
+            <option>Lotion Corporelle</option>
+            <option>Lip Gloss VIF — B03</option>
+            <option>Lip Gloss VIF — M03</option>
+            <option>Autre / Conseil personnalisé</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="4" placeholder="Votre message..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">
+          Envoyer le message <Icon name="send" size={15} />
+        </button>
+        <p id="form-confirm" class="form-confirm" hidden>
+          <Icon name="check-circle" size={16} /> Merci ! Ceci est un aperçu — écrivez-nous sur WhatsApp pour une vraie réponse.
+        </p>
+      </form>
+    </div>
+  </section>
+
+  <script>
+    const form = document.getElementById("contact-form");
+    const confirm = document.getElementById("form-confirm");
+    form?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      confirm?.removeAttribute("hidden");
+      (form as HTMLFormElement).reset();
+    });
+  </script>
+</Layout>
+
+<style>
+  .page-header {
+    padding: 64px 24px 56px;
+  }
+  .page-header__inner {
+    max-width: 560px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+  .page-header__inner h1 {
+    font-size: clamp(2.2rem, 7vw, 3rem);
+  }
+  .page-header__inner p {
+    color: var(--ink-soft);
+    font-size: 15.5px;
+  }
+
+  .contact {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 56px;
+    padding-bottom: 100px;
+  }
+
+  .contact__info {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  .info-block {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding-bottom: 26px;
+    border-bottom: 1px solid var(--line);
+  }
+  .info-block__icon {
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--bg-alt);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .info-block h3 {
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .info-block a {
+    color: var(--accent-dark);
+    font-weight: 600;
+    font-size: 15px;
+  }
+  .info-block p {
+    color: var(--ink-soft);
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+  .muted-note {
+    font-style: italic;
+    color: #a99a86;
+  }
+  .btn-sm {
+    padding: 9px 18px;
+    font-size: 11.5px;
+  }
+
+  .contact__form {
+    background: var(--bg-alt);
+    padding: 40px 28px;
+    border-radius: 3px;
+  }
+  .contact__form h2 {
+    font-size: 26px;
+    margin-bottom: 8px;
+  }
+  .form-note {
+    color: var(--ink-soft);
+    font-size: 13px;
+    line-height: 1.6;
+    margin-bottom: 26px;
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 18px;
+  }
+  .field label {
+    font-size: 11.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--ink-soft);
+  }
+  .field input,
+  .field select,
+  .field textarea {
+    font-family: var(--font-body);
+    font-size: 14.5px;
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    background: var(--white);
+    color: var(--ink);
+    outline: none;
+    resize: vertical;
+  }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    border-color: var(--accent);
+  }
+  .form-confirm {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13.5px;
+    color: var(--accent-dark);
+    font-weight: 600;
+  }
+
+  @media (min-width: 900px) {
+    .contact {
+      grid-template-columns: 0.9fr 1.1fr;
+    }
+  }
+</style>

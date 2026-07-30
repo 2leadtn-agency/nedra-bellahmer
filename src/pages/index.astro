@@ -1,12 +1,501 @@
 ---
+import Layout from "../layouts/Layout.astro";
+import Icon from "../components/Icon.astro";
+
+const waHref = `https://wa.me/21628897456?text=${encodeURIComponent("Bonjour, je vous contacte depuis votre site")}`;
 ---
-<html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Apercu</title>
-</head>
-<body>
-  <h1>Apercu en cours de construction</h1>
-</body>
-</html>
+
+<Layout
+  title="Nedra Bellahmer — Parfums, Maquillage & Soins Cosmétiques"
+  description="Parfums VIF #TAG, maquillage, soins du corps et coffrets cadeaux — la sélection cosmétique de Nedra Bellahmer, à commander sur WhatsApp."
+  path="/"
+>
+  <!-- HERO — signature asymmetric editorial split -->
+  <section class="hero">
+    <div class="hero__text">
+      <span class="eyebrow reveal">Parfums · Maquillage · Soins · Coffrets</span>
+      <h1 class="reveal reveal-delay-1">L'élégance se porte,<br /> se respire, s'offre.</h1>
+      <p class="hero__lede reveal reveal-delay-2">
+        Nedra Bellahmer sélectionne pour vous des parfums, du maquillage et des soins du
+        corps qui subliment chaque instant — à commander en un message.
+      </p>
+      <div class="hero__actions reveal reveal-delay-3">
+        <a class="btn btn-primary" href="/produits">
+          Découvrir la boutique <Icon name="arrow-right" size={16} />
+        </a>
+        <a class="btn btn-outline" href={waHref} target="_blank" rel="noopener noreferrer">
+          Écrire sur WhatsApp
+        </a>
+      </div>
+    </div>
+
+    <div class="hero__image">
+      <img
+        src="/images/hero-accueil-nedra-bellahmer.jpg"
+        alt="Mise en scène élégante de parfums et cosmétiques Nedra Bellahmer"
+        loading="eager"
+      />
+      <a class="hero__floating-card reveal" href="/produits#coffrets">
+        <Icon name="gift" size={20} />
+        <div>
+          <strong>Coffret Cadeau Prestige</strong>
+          <span>L'écrin parfait pour offrir</span>
+        </div>
+        <Icon name="arrow-up-right" size={16} />
+      </a>
+    </div>
+  </section>
+
+  <!-- CATEGORY MOSAIC -->
+  <section class="mosaic container">
+    <div class="mosaic__intro reveal">
+      <span class="eyebrow">La boutique</span>
+      <h2>Quatre univers, une même exigence</h2>
+      <p>Des essentiels choisis avec soin, pensés pour accompagner chaque rituel beauté.</p>
+    </div>
+
+    <div class="mosaic__grid">
+      <a class="mosaic__tile mosaic__tile--lg reveal" href="/produits#parfums">
+        <img src="/images/produit-parfum-vif-tag-femme.png" alt="Parfums VIF #TAG" />
+        <div class="mosaic__label">
+          <span>Parfums VIF #TAG</span>
+          <Icon name="arrow-up-right" size={16} />
+        </div>
+      </a>
+      <a class="mosaic__tile reveal reveal-delay-1" href="/produits#maquillage">
+        <img src="/images/produit-lipgloss-vif-b03.png" alt="Maquillage — Lip Gloss VIF" />
+        <div class="mosaic__label">
+          <span>Maquillage</span>
+          <Icon name="arrow-up-right" size={16} />
+        </div>
+      </a>
+      <a class="mosaic__tile reveal reveal-delay-2" href="/produits#soins">
+        <img src="/images/produit-gel-douche-corps.png" alt="Soins du corps" />
+        <div class="mosaic__label">
+          <span>Soins du corps</span>
+          <Icon name="arrow-up-right" size={16} />
+        </div>
+      </a>
+      <a class="mosaic__tile mosaic__tile--wide reveal reveal-delay-3" href="/produits#coffrets">
+        <img src="/images/produit-coffret-cadeau-prestige.png" alt="Coffrets cadeaux" />
+        <div class="mosaic__label">
+          <span>Coffrets cadeaux</span>
+          <Icon name="arrow-up-right" size={16} />
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- VIF #TAG SPOTLIGHT -->
+  <section class="spotlight">
+    <div class="container spotlight__grid">
+      <div class="spotlight__text reveal">
+        <span class="eyebrow eyebrow--light">La signature parfums</span>
+        <h2>VIF <em>#TAG</em></h2>
+        <p>
+          Deux sillages, une même intensité — l'un floral et affirmé, l'autre boisé et
+          profond. Le parfum comme signature, pensé pour marquer chaque entrée.
+        </p>
+        <a class="btn btn-ghost-light" href="/produits#parfums">
+          Découvrir les parfums <Icon name="arrow-right" size={16} />
+        </a>
+      </div>
+      <div class="spotlight__images reveal reveal-delay-2">
+        <img
+          class="spotlight__img spotlight__img--front"
+          src="/images/produit-parfum-vif-tag-femme.png"
+          alt="Parfum VIF #TAG Édition Femme"
+        />
+        <img
+          class="spotlight__img spotlight__img--back"
+          src="/images/produit-parfum-vif-tag-homme.png"
+          alt="Parfum VIF #TAG Édition Homme"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- GIFT FEATURE -->
+  <section class="gift-feature container">
+    <div class="gift-feature__image reveal">
+      <img src="/images/lifestyle-coffret-prestige.jpg" alt="Coffret Cadeau Prestige mis en scène" />
+    </div>
+    <div class="gift-feature__text reveal reveal-delay-1">
+      <span class="eyebrow">Idée cadeau</span>
+      <h2>Un geste, <br />un souvenir</h2>
+      <p>
+        Le Coffret Cadeau Prestige réunit un soin du corps et un parfum dans un écrin
+        ruban, prêt à offrir en toute occasion — anniversaire, fête, ou simple attention.
+      </p>
+      <a class="btn btn-primary" href="/produits#coffrets">
+        Voir le coffret <Icon name="arrow-right" size={16} />
+      </a>
+    </div>
+  </section>
+
+  <!-- TRUST STRIP -->
+  <section class="trust container reveal">
+    <div class="trust__item">
+      <Icon name="truck" size={20} />
+      <span>Livraison partout en Tunisie</span>
+    </div>
+    <div class="trust__item">
+      <Icon name="send" size={20} />
+      <span>Commande facile via WhatsApp</span>
+    </div>
+    <div class="trust__item">
+      <Icon name="star" size={20} />
+      <span>Sélection soignée</span>
+    </div>
+    <div class="trust__item">
+      <Icon name="gift" size={20} />
+      <span>Coffrets prêts à offrir</span>
+    </div>
+  </section>
+
+  <!-- CLOSING CTA -->
+  <section class="closing-cta">
+    <div class="container closing-cta__inner reveal">
+      <h2>Une question sur un produit ?</h2>
+      <p>Notre équipe vous répond avec plaisir, par message ou par téléphone.</p>
+      <a class="btn btn-primary" href="/contact">
+        Contactez-nous <Icon name="arrow-right" size={16} />
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* HERO */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .hero__text {
+    padding: 56px 24px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  .hero__text h1 {
+    font-size: clamp(2.4rem, 8vw, 3.1rem);
+  }
+  .hero__lede {
+    font-size: 16px;
+    color: var(--ink-soft);
+    max-width: 44ch;
+    line-height: 1.75;
+  }
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 6px;
+  }
+  .hero__image {
+    position: relative;
+    height: 58vh;
+    min-height: 340px;
+    overflow: hidden;
+  }
+  .hero__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .hero__floating-card {
+    position: absolute;
+    left: 16px;
+    bottom: 16px;
+    background: rgba(248, 243, 236, 0.95);
+    backdrop-filter: blur(6px);
+    padding: 14px 16px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--ink);
+    max-width: 260px;
+    box-shadow: 0 10px 30px rgba(36, 29, 25, 0.18);
+  }
+  .hero__floating-card strong {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .hero__floating-card span {
+    display: block;
+    font-size: 11.5px;
+    color: var(--ink-soft);
+    margin-top: 2px;
+  }
+  .hero__floating-card svg:first-child {
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+  .hero__floating-card svg:last-child {
+    margin-left: auto;
+    flex-shrink: 0;
+    color: var(--gold);
+  }
+
+  @media (min-width: 860px) {
+    .hero {
+      grid-template-columns: 44% 56%;
+      align-items: stretch;
+      min-height: 88vh;
+    }
+    .hero__text {
+      padding: 0 0 0 56px;
+      justify-content: center;
+      max-width: 560px;
+    }
+    .hero__image {
+      height: auto;
+      min-height: 100%;
+    }
+    .hero__floating-card {
+      left: -40px;
+      bottom: 48px;
+      max-width: 280px;
+    }
+  }
+
+  /* MOSAIC */
+  .mosaic {
+    padding: 96px 24px 40px;
+  }
+  .mosaic__intro {
+    max-width: 480px;
+    margin-bottom: 44px;
+  }
+  .mosaic__intro h2 {
+    font-size: clamp(1.8rem, 5vw, 2.4rem);
+    margin: 14px 0 12px;
+  }
+  .mosaic__intro p {
+    color: var(--ink-soft);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+  .mosaic__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .mosaic__tile {
+    position: relative;
+    display: block;
+    height: 260px;
+    overflow: hidden;
+    border-radius: 2px;
+    background: var(--bg-alt);
+  }
+  .mosaic__tile img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 30px;
+    transition: transform 0.5s ease;
+  }
+  .mosaic__tile:hover img {
+    transform: scale(1.06);
+  }
+  .mosaic__tile::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 40%, rgba(36, 29, 25, 0.55) 100%);
+  }
+  .mosaic__label {
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--white);
+    font-family: var(--font-display);
+    font-size: 19px;
+    font-weight: 600;
+  }
+
+  @media (min-width: 720px) {
+    .mosaic__grid {
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 210px;
+    }
+    .mosaic__tile--lg {
+      grid-column: span 2;
+      grid-row: span 2;
+      height: auto;
+    }
+    .mosaic__tile--wide {
+      grid-column: span 2;
+      height: auto;
+    }
+  }
+
+  /* SPOTLIGHT */
+  .spotlight {
+    background: var(--ink);
+    margin-top: 40px;
+    padding: 80px 0;
+  }
+  .spotlight__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .spotlight__text h2 {
+    color: var(--white);
+    font-size: clamp(2.2rem, 7vw, 3rem);
+    margin: 14px 0 18px;
+  }
+  .spotlight__text h2 em {
+    color: var(--gold-light);
+    font-style: italic;
+  }
+  .spotlight__text p {
+    color: #cfc3b4;
+    font-size: 15.5px;
+    line-height: 1.8;
+    max-width: 42ch;
+    margin-bottom: 28px;
+  }
+  .eyebrow--light {
+    color: var(--gold-light);
+  }
+  .eyebrow--light::before {
+    background: var(--gold-light);
+  }
+  .spotlight__images {
+    position: relative;
+    height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .spotlight__img {
+    position: absolute;
+    width: 46%;
+    max-width: 220px;
+    border-radius: 3px;
+    background: #fffdfa;
+    padding: 18px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  }
+  .spotlight__img--front {
+    left: 50%;
+    transform: translateX(-62%) rotate(-3deg);
+    z-index: 2;
+  }
+  .spotlight__img--back {
+    left: 50%;
+    transform: translateX(-38%) rotate(4deg);
+    z-index: 1;
+    opacity: 0.92;
+  }
+
+  @media (min-width: 860px) {
+    .spotlight__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  /* GIFT FEATURE */
+  .gift-feature {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    align-items: center;
+    padding: 90px 24px;
+  }
+  .gift-feature__image img {
+    width: 100%;
+    border-radius: 3px;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+  }
+  .gift-feature__text h2 {
+    font-size: clamp(2rem, 6vw, 2.6rem);
+    margin: 14px 0 16px;
+  }
+  .gift-feature__text p {
+    color: var(--ink-soft);
+    font-size: 15.5px;
+    line-height: 1.8;
+    max-width: 44ch;
+    margin-bottom: 26px;
+  }
+
+  @media (min-width: 860px) {
+    .gift-feature {
+      grid-template-columns: 0.85fr 1fr;
+      gap: 64px;
+    }
+  }
+
+  /* TRUST STRIP */
+  .trust {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    padding: 20px 24px 90px;
+  }
+  .trust__item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13.5px;
+    letter-spacing: 0.02em;
+    color: var(--ink-soft);
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--line);
+  }
+  .trust__item svg {
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+  @media (min-width: 760px) {
+    .trust {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+    .trust__item {
+      border-bottom: none;
+      padding-bottom: 0;
+      flex: 1;
+      justify-content: center;
+      border-right: 1px solid var(--line);
+    }
+    .trust__item:last-child {
+      border-right: none;
+    }
+  }
+
+  /* CLOSING CTA */
+  .closing-cta {
+    background: var(--bg-alt);
+    padding: 90px 24px;
+  }
+  .closing-cta__inner {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  .closing-cta__inner h2 {
+    font-size: clamp(1.9rem, 6vw, 2.4rem);
+  }
+  .closing-cta__inner p {
+    color: var(--ink-soft);
+    font-size: 15px;
+    margin-bottom: 8px;
+  }
+</style>

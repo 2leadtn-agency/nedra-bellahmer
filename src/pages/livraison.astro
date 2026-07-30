@@ -1,0 +1,38 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+  title="Livraison — Nedra Bellahmer"
+  description="Informations de livraison pour les commandes Nedra Bellahmer."
+  path="/livraison"
+>
+  <section class="stub">
+    <span class="stub__ornament" aria-hidden="true"></span>
+    <p class="stub__text reveal">Contenu bientôt disponible</p>
+  </section>
+</Layout>
+
+<style>
+  .stub {
+    min-height: 56vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+    padding: 80px 24px;
+    text-align: center;
+  }
+  .stub__ornament {
+    width: 46px;
+    height: 1px;
+    background: var(--gold);
+  }
+  .stub__text {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    color: var(--ink-soft);
+  }
+</style>

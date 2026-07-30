@@ -1,0 +1,662 @@
+---
+import Icon from "../components/Icon.astro";
+import WhatsAppButton from "../components/WhatsAppButton.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  path?: string;
+  ogImage?: string;
+}
+
+const {
+  title,
+  description,
+  path = "/",
+  ogImage = "/images/hero-accueil-nedra-bellahmer.jpg",
+} = Astro.props;
+
+const siteUrl = "https://nedra-bellahmer.vercel.app";
+
+const navLinks = [
+  { href: "/", label: "Accueil" },
+  { href: "/produits", label: "Boutique" },
+  { href: "/a-propos", label: "À propos" },
+  { href: "/livraison", label: "Livraison" },
+  { href: "/contact", label: "Contact" },
+];
+
+const waHref = `https://wa.me/21628897456?text=${encodeURIComponent("Bonjour, je vous contacte depuis votre site")}`;
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Nedra Bellahmer - Produits Cosmétiques" />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={`${siteUrl}${ogImage}`} />
+    <meta property="og:url" content={`${siteUrl}${path}`} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23241D19'/%3E%3Ctext x='50' y='69' font-family='Georgia,serif' font-size='56' fill='%23C7A467' text-anchor='middle'%3EN%3C/text%3E%3C/svg%3E"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Raleway:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="utility-bar">
+      <span class="utility-bar__item">
+        <Icon name="truck" size={14} />
+        Livraison partout en Tunisie
+      </span>
+      <a class="utility-bar__item utility-bar__phone" href="tel:+21628897456">
+        <Icon name="phone" size={14} />
+        +216 28 897 456
+      </a>
+    </div>
+
+    <header class="site-nav" id="site-nav">
+      <a class="wordmark" href="/">
+        Nedra <em>Bellahmer</em>
+        <span class="wordmark__tag">Cosmétiques &amp; Parfumerie</span>
+      </a>
+
+      <nav class="nav-links" aria-label="Navigation principale">
+        {
+          navLinks.map((link) => (
+            <a href={link.href} class={path === link.href ? "active" : ""}>
+              {link.label}
+            </a>
+          ))
+        }
+        <a class="nav-cta" href={waHref} target="_blank" rel="noopener noreferrer">
+          <Icon name="phone" size={15} />
+          Nous écrire
+        </a>
+      </nav>
+
+      <button class="menu-toggle" id="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+        <Icon name="menu" size={26} />
+      </button>
+    </header>
+
+    <div class="mobile-menu" id="mobile-menu">
+      <button class="mobile-menu__close" id="mobile-menu-close" aria-label="Fermer le menu">
+        <Icon name="x" size={28} />
+      </button>
+      <nav aria-label="Navigation mobile">
+        {
+          navLinks.map((link, i) => (
+            <a href={link.href} style={`--i:${i}`} class={path === link.href ? "active" : ""}>
+              {link.label}
+            </a>
+          ))
+        }
+      </nav>
+      <a class="mobile-menu__cta" href={waHref} target="_blank" rel="noopener noreferrer">
+        <Icon name="phone" size={16} /> +216 28 897 456
+      </a>
+    </div>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <p class="wordmark wordmark--footer">Nedra <em>Bellahmer</em></p>
+          <p class="footer-blurb">
+            Parfums, maquillage, soins du corps et coffrets cadeaux — une sélection pensée
+            pour sublimer votre quotidien, avec élégance et douceur.
+          </p>
+          <a
+            class="footer-social"
+            href="https://www.facebook.com/nedra.superviseurcl"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Nedra Bellahmer sur Facebook"
+          >
+            <Icon name="facebook" size={18} />
+            Suivez-nous sur Facebook
+          </a>
+        </div>
+
+        <div class="footer-col">
+          <h3>Navigation</h3>
+          <ul>
+            {navLinks.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3>Catégories</h3>
+          <ul>
+            <li><a href="/produits#coffrets">Coffrets cadeaux</a></li>
+            <li><a href="/produits#parfums">Parfums VIF #TAG</a></li>
+            <li><a href="/produits#soins">Soins du corps</a></li>
+            <li><a href="/produits#maquillage">Maquillage</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3>Contact</h3>
+          <ul>
+            <li>
+              <a href="tel:+21628897456"><Icon name="phone" size={15} /> +216 28 897 456</a>
+            </li>
+            <li>
+              <a href={waHref} target="_blank" rel="noopener noreferrer">
+                <Icon name="send" size={15} /> WhatsApp
+              </a>
+            </li>
+            <li>
+              <a href="https://www.facebook.com/nedra.superviseurcl" target="_blank" rel="noopener noreferrer">
+                <Icon name="facebook" size={15} /> Facebook
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 Nedra Bellahmer. Tous droits réservés.</span>
+        <span>Aperçu de site — non indexé</span>
+      </div>
+    </footer>
+
+    <WhatsAppButton />
+
+    <script src="/chatbot.js" is:inline></script>
+
+    <script>
+      const nav = document.getElementById("site-nav");
+      const toggle = document.getElementById("menu-toggle");
+      const closeBtn = document.getElementById("mobile-menu-close");
+      const mobileMenu = document.getElementById("mobile-menu");
+
+      const openMenu = () => {
+        mobileMenu?.classList.add("open");
+        document.body.style.overflow = "hidden";
+        toggle?.setAttribute("aria-expanded", "true");
+      };
+      const closeMenu = () => {
+        mobileMenu?.classList.remove("open");
+        document.body.style.overflow = "";
+        toggle?.setAttribute("aria-expanded", "false");
+      };
+
+      toggle?.addEventListener("click", openMenu);
+      closeBtn?.addEventListener("click", closeMenu);
+      mobileMenu?.querySelectorAll("a").forEach((a) => a.addEventListener("click", closeMenu));
+
+      const onScroll = () => {
+        if (window.scrollY > 12) nav?.classList.add("scrolled");
+        else nav?.classList.remove("scrolled");
+      };
+      document.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.15, rootMargin: "0px 0px -40px 0px" }
+      );
+      document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+    </script>
+
+    <style is:global>
+      :root {
+        --bg: #f8f3ec;
+        --bg-alt: #f0e7d8;
+        --ink: #241d19;
+        --ink-soft: #6b5d4f;
+        --accent: #b4693e;
+        --accent-dark: #8f4f2c;
+        --gold: #ad8a55;
+        --gold-light: #d9c6a0;
+        --line: #e2d5c0;
+        --white: #fffdfa;
+        --font-display: "Cormorant Garamond", Georgia, serif;
+        --font-body: "Raleway", sans-serif;
+        --container: 1180px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--font-body);
+        font-weight: 400;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      h1, h2, h3, h4 {
+        font-family: var(--font-display);
+        font-weight: 600;
+        line-height: 1.12;
+        margin: 0;
+        color: var(--ink);
+        letter-spacing: 0.005em;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      .container {
+        width: 100%;
+        max-width: var(--container);
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-family: var(--font-body);
+        font-size: 12px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--accent-dark);
+        font-weight: 600;
+      }
+
+      .eyebrow::before {
+        content: "";
+        width: 22px;
+        height: 1px;
+        background: var(--gold);
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        padding: 14px 28px;
+        border-radius: 2px;
+        font-family: var(--font-body);
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        border: 1px solid transparent;
+        cursor: pointer;
+        transition: all 0.25s ease;
+        white-space: nowrap;
+      }
+
+      .btn-primary {
+        background: var(--accent);
+        color: var(--white);
+        border-color: var(--accent);
+      }
+      .btn-primary:hover {
+        background: var(--accent-dark);
+        border-color: var(--accent-dark);
+      }
+
+      .btn-outline {
+        background: transparent;
+        color: var(--ink);
+        border-color: var(--ink);
+      }
+      .btn-outline:hover {
+        background: var(--ink);
+        color: var(--white);
+      }
+
+      .btn-ghost-light {
+        background: transparent;
+        color: var(--white);
+        border-color: rgba(255, 255, 255, 0.55);
+      }
+      .btn-ghost-light:hover {
+        background: rgba(255, 255, 255, 0.12);
+        border-color: var(--white);
+      }
+
+      /* Reveal animations */
+      .reveal {
+        opacity: 0;
+        transform: translateY(18px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+      }
+      .reveal.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .reveal-delay-1.is-visible { transition-delay: 0.08s; }
+      .reveal-delay-2.is-visible { transition-delay: 0.16s; }
+      .reveal-delay-3.is-visible { transition-delay: 0.24s; }
+
+      @media (prefers-reduced-motion: reduce) {
+        .reveal { opacity: 1; transform: none; transition: none; }
+        html { scroll-behavior: auto; }
+      }
+
+      /* Utility bar */
+      .utility-bar {
+        background: var(--ink);
+        color: var(--gold-light);
+        font-size: 11.5px;
+        letter-spacing: 0.06em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 28px;
+        padding: 7px 20px;
+      }
+      .utility-bar__item {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .utility-bar__phone {
+        color: var(--gold-light);
+      }
+      @media (max-width: 640px) {
+        .utility-bar { justify-content: center; }
+        .utility-bar__item:first-child { display: none; }
+      }
+
+      /* Nav */
+      .site-nav {
+        position: sticky;
+        top: 0;
+        z-index: 500;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 28px;
+        background: var(--bg);
+        border-bottom: 1px solid transparent;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease;
+      }
+      .site-nav.scrolled {
+        border-color: var(--line);
+        padding: 12px 28px;
+        box-shadow: 0 4px 20px rgba(36, 29, 25, 0.06);
+      }
+
+      .wordmark {
+        font-family: var(--font-display);
+        font-size: 25px;
+        font-weight: 600;
+        color: var(--ink);
+        display: flex;
+        flex-direction: column;
+        line-height: 1;
+      }
+      .wordmark em {
+        font-style: italic;
+        color: var(--accent);
+        font-weight: 500;
+      }
+      .wordmark__tag {
+        font-family: var(--font-body);
+        font-size: 9.5px;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: var(--ink-soft);
+        margin-top: 3px;
+        font-weight: 500;
+      }
+
+      .nav-links {
+        display: none;
+        align-items: center;
+        gap: 34px;
+        font-size: 13px;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        font-weight: 500;
+      }
+      .nav-links a:not(.nav-cta) {
+        position: relative;
+        padding-bottom: 4px;
+        color: var(--ink-soft);
+        transition: color 0.2s ease;
+      }
+      .nav-links a:not(.nav-cta)::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 0;
+        height: 1px;
+        background: var(--accent);
+        transition: width 0.25s ease;
+      }
+      .nav-links a:not(.nav-cta):hover,
+      .nav-links a.active:not(.nav-cta) {
+        color: var(--ink);
+      }
+      .nav-links a:not(.nav-cta):hover::after,
+      .nav-links a.active:not(.nav-cta)::after {
+        width: 100%;
+      }
+      .nav-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        background: var(--ink);
+        color: var(--white) !important;
+        padding: 10px 20px;
+        border-radius: 2px;
+        font-size: 12px;
+        transition: background 0.25s ease;
+      }
+      .nav-cta:hover {
+        background: var(--accent-dark);
+      }
+
+      .menu-toggle {
+        background: none;
+        border: none;
+        color: var(--ink);
+        cursor: pointer;
+        padding: 4px;
+        display: flex;
+      }
+
+      @media (min-width: 940px) {
+        .nav-links { display: flex; }
+        .menu-toggle { display: none; }
+      }
+
+      /* Mobile menu overlay */
+      .mobile-menu {
+        position: fixed;
+        inset: 0;
+        background: var(--bg);
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 40px 36px;
+        transform: translateY(-100%);
+        transition: transform 0.4s ease;
+      }
+      .mobile-menu.open {
+        transform: translateY(0);
+      }
+      .mobile-menu__close {
+        position: absolute;
+        top: 22px;
+        right: 24px;
+        background: none;
+        border: none;
+        color: var(--ink);
+        cursor: pointer;
+      }
+      .mobile-menu nav {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .mobile-menu nav a {
+        font-family: var(--font-display);
+        font-size: 34px;
+        color: var(--ink);
+        padding: 10px 0;
+        border-bottom: 1px solid var(--line);
+        opacity: 0;
+        transform: translateX(-14px);
+        transition: opacity 0.4s ease, transform 0.4s ease;
+        transition-delay: calc(var(--i) * 0.05s);
+      }
+      .mobile-menu.open nav a {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      .mobile-menu nav a.active {
+        color: var(--accent);
+      }
+      .mobile-menu__cta {
+        margin-top: 30px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--accent-dark);
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        width: fit-content;
+      }
+
+      /* Footer */
+      .site-footer {
+        background: var(--ink);
+        color: #cfc3b4;
+        padding: 72px 28px 0;
+      }
+      .footer-grid {
+        max-width: var(--container);
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1.4fr 1fr 1fr 1fr;
+        gap: 40px;
+        padding-bottom: 56px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .wordmark--footer {
+        font-size: 26px;
+        color: var(--white);
+      }
+      .wordmark--footer em {
+        color: var(--gold-light);
+      }
+      .footer-blurb {
+        margin-top: 16px;
+        font-size: 13.5px;
+        line-height: 1.75;
+        color: #b3a696;
+        max-width: 320px;
+      }
+      .footer-social {
+        margin-top: 22px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        color: var(--gold-light);
+        font-weight: 600;
+      }
+      .footer-col h3 {
+        font-family: var(--font-body);
+        font-size: 12px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--white);
+        font-weight: 600;
+        margin-bottom: 18px;
+      }
+      .footer-col ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        font-size: 13.5px;
+      }
+      .footer-col ul a {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: #b3a696;
+        transition: color 0.2s ease;
+      }
+      .footer-col ul a:hover {
+        color: var(--gold-light);
+      }
+      .footer-bottom {
+        max-width: var(--container);
+        margin: 0 auto;
+        padding: 22px 0;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 8px;
+        font-size: 11.5px;
+        letter-spacing: 0.04em;
+        color: #8a7d6d;
+      }
+
+      @media (max-width: 800px) {
+        .footer-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .footer-brand {
+          grid-column: 1 / -1;
+        }
+      }
+      @media (max-width: 480px) {
+        .footer-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </body>
+</html>
