@@ -31,10 +31,19 @@ const CHATBOT_CONFIG = {
     const side = isLeft ? 'left' : 'right'
 
     const css = `
-      .lrcb-toggle {
+      .lrcb-launcher {
         position: fixed;
         bottom: 90px;
         ${side}: 20px;
+        z-index: 2147483000;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-direction: ${isLeft ? 'row' : 'row-reverse'};
+      }
+      .lrcb-toggle {
+        position: static;
+        flex-shrink: 0;
         width: 56px;
         height: 56px;
         border-radius: 50%;
@@ -45,7 +54,6 @@ const CHATBOT_CONFIG = {
         display: flex;
         align-items: center;
         justify-content: center;
-        z-index: 2147483000;
         padding: 0;
         transition: transform 0.15s ease;
       }
@@ -55,6 +63,44 @@ const CHATBOT_CONFIG = {
       .lrcb-toggle svg {
         width: 27px;
         height: 27px;
+      }
+      .lrcb-nudge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: #ffffff;
+        color: #241d19;
+        padding: 11px 16px;
+        border-radius: 30px;
+        font-size: 13.5px;
+        font-weight: 600;
+        white-space: nowrap;
+        box-shadow: 0 4px 16px rgba(36, 29, 25, 0.18);
+        cursor: pointer;
+        opacity: 0;
+        transform: translateY(6px) scale(0.98);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+        pointer-events: none;
+      }
+      .lrcb-nudge.lrcb-visible {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        pointer-events: auto;
+      }
+      .lrcb-nudge-close {
+        background: none;
+        border: none;
+        padding: 2px;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        color: #a99a86;
+        cursor: pointer;
+        flex-shrink: 0;
+      }
+      .lrcb-nudge-close svg {
+        width: 13px;
+        height: 13px;
       }
       .lrcb-panel {
         position: fixed;
@@ -248,7 +294,7 @@ const CHATBOT_CONFIG = {
           bottom: 152px;
           height: min(440px, calc(100vh - 200px));
         }
-        .lrcb-toggle {
+        .lrcb-launcher {
           right: 16px;
           left: auto;
           bottom: 86px;
@@ -267,10 +313,31 @@ const CHATBOT_CONFIG = {
     '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 21h6a1 1 0 0 0 1-1v-8a3 3 0 0 0-3-3v-3h1V4h-4v2h1v3a3 3 0 0 0-3 3v8a1 1 0 0 0 1 1Z" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><line x1="9" y1="14" x2="15" y2="14" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><path d="M18.5 3.5 19 5l1.5.5L19 6l-.5 1.5L18 6l-1.5-.5L18 5l.5-1.5Z" fill="#fff"/></svg>'
 
   function buildWidget() {
+    const launcher = document.createElement('div')
+    launcher.className = 'lrcb-launcher'
+
     const toggle = document.createElement('button')
     toggle.className = 'lrcb-toggle'
     toggle.setAttribute('aria-label', 'Ouvrir le chat')
     toggle.innerHTML = AVATAR_SVG
+
+    const nudge = document.createElement('button')
+    nudge.type = 'button'
+    nudge.className = 'lrcb-nudge'
+    nudge.setAttribute('aria-label', 'Une question ? Ouvrir le chat')
+
+    const nudgeText = document.createElement('span')
+    nudgeText.textContent = 'Une question ?'
+
+    const nudgeClose = document.createElement('span')
+    nudgeClose.className = 'lrcb-nudge-close'
+    nudgeClose.setAttribute('role', 'button')
+    nudgeClose.setAttribute('aria-label', 'Ignorer')
+    nudgeClose.innerHTML =
+      '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 6 6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+
+    nudge.appendChild(nudgeText)
+    nudge.appendChild(nudgeClose)
 
     const panel = document.createElement('div')
     panel.className = 'lrcb-panel'
@@ -346,12 +413,25 @@ const CHATBOT_CONFIG = {
     panel.appendChild(inputRow)
     panel.appendChild(whatsapp)
 
-    document.body.appendChild(toggle)
+    launcher.appendChild(nudge)
+    launcher.appendChild(toggle)
+    document.body.appendChild(launcher)
     document.body.appendChild(panel)
 
-    els = { toggle, panel, closeBtn, messages, typing, input, sendBtn, autoResize }
+    els = { launcher, toggle, nudge, panel, closeBtn, messages, typing, input, sendBtn, autoResize }
 
-    toggle.addEventListener('click', openPanel)
+    toggle.addEventListener('click', function () {
+      dismissNudge()
+      openPanel()
+    })
+    nudge.addEventListener('click', function () {
+      dismissNudge()
+      openPanel()
+    })
+    nudgeClose.addEventListener('click', function (e) {
+      e.stopPropagation()
+      dismissNudge()
+    })
     closeBtn.addEventListener('click', closePanel)
     sendBtn.addEventListener('click', handleSend)
     input.addEventListener('keydown', function (e) {
@@ -360,6 +440,28 @@ const CHATBOT_CONFIG = {
         handleSend()
       }
     })
+
+    maybeShowNudge()
+  }
+
+  function maybeShowNudge() {
+    let alreadySeen = false
+    try {
+      alreadySeen = localStorage.getItem('lrcb-nudge-seen') === '1'
+    } catch (e) {}
+
+    if (alreadySeen) return
+
+    window.setTimeout(function () {
+      els.nudge.classList.add('lrcb-visible')
+    }, 1200)
+  }
+
+  function dismissNudge() {
+    els.nudge.classList.remove('lrcb-visible')
+    try {
+      localStorage.setItem('lrcb-nudge-seen', '1')
+    } catch (e) {}
   }
 
   function openPanel() {

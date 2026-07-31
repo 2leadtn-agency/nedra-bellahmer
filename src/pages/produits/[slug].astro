@@ -1,0 +1,285 @@
+---
+import { Image } from "astro:assets";
+import Layout from "../../layouts/Layout.astro";
+import Icon from "../../components/Icon.astro";
+import { products, getRelatedProducts } from "../../data/products";
+
+export function getStaticPaths() {
+  return products.map((product) => ({
+    params: { slug: product.slug },
+    props: { product },
+  }));
+}
+
+const { product } = Astro.props;
+const related = getRelatedProducts(product);
+
+const waHref = `https://wa.me/21628897456?text=${encodeURIComponent(
+  `Bonjour, je suis intéressé(e) par : ${product.name}. Est-il disponible ?`
+)}`;
+
+const categoryAnchor = `/produits#${product.category}`;
+---
+
+<Layout
+  title={`${product.name} — Nedra Bellahmer`}
+  description={product.desc}
+  path={`/produits/${product.slug}`}
+>
+  <nav class="breadcrumb container reveal" aria-label="Fil d'Ariane">
+    <a href="/">Accueil</a>
+    <span>/</span>
+    <a href="/produits">Boutique</a>
+    <span>/</span>
+    <a href={categoryAnchor}>{product.categoryLabel}</a>
+    <span>/</span>
+    <span class="breadcrumb__current">{product.name}</span>
+  </nav>
+
+  <section class="pdp container">
+    <div class="pdp__image reveal">
+      <Image src={product.img} alt={product.name} width={700} height={700} quality={85} loading="eager" />
+      {product.feature && (
+        <span class="pdp__badge">
+          <Icon name="sparkles" size={13} /> Sélection
+        </span>
+      )}
+    </div>
+
+    <div class="pdp__details reveal reveal-delay-1">
+      <span class="eyebrow">{product.categoryLabel}</span>
+      <h1>{product.name}</h1>
+      <p class="pdp__desc">{product.longDesc}</p>
+
+      <div class="pdp__actions">
+        <a class="btn btn-primary" href={waHref} target="_blank" rel="noopener noreferrer">
+          <Icon name="send" size={16} /> Commander sur WhatsApp
+        </a>
+        <a class="btn btn-outline" href="/contact">Poser une question</a>
+      </div>
+
+      <ul class="pdp__trust">
+        <li><Icon name="truck" size={16} /> Livraison partout en Tunisie</li>
+        <li><Icon name="check-circle" size={16} /> Disponible sur commande</li>
+      </ul>
+
+      <a class="pdp__back" href="/produits">
+        <Icon name="arrow-right" size={14} class="pdp__back-icon" /> Retour à la boutique
+      </a>
+    </div>
+  </section>
+
+  {related.length > 0 && (
+    <section class="also-like container">
+      <h2 class="reveal">Vous aimerez aussi</h2>
+      <div class="also-like__grid">
+        {
+          related.map((p, i) => (
+            <a
+              class:list={["also-card", "reveal", i === 1 && "reveal-delay-1", i === 2 && "reveal-delay-2"]}
+              href={`/produits/${p.slug}`}
+            >
+              <div class="also-card__image">
+                <Image src={p.img} alt={p.name} width={360} height={360} quality={80} loading="lazy" />
+              </div>
+              <span class="also-card__tag">{p.categoryLabel}</span>
+              <h3>{p.name}</h3>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+  )}
+</Layout>
+
+<style>
+  .breadcrumb {
+    padding: 28px 24px 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    font-size: 12.5px;
+    letter-spacing: 0.02em;
+    color: var(--ink-soft);
+  }
+  .breadcrumb a {
+    color: var(--ink-soft);
+    transition: color 0.2s ease;
+  }
+  .breadcrumb a:hover {
+    color: var(--accent-dark);
+  }
+  .breadcrumb__current {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .pdp {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 32px 24px 90px;
+  }
+  .pdp__image {
+    position: relative;
+    background: #f3e6de;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .pdp__image img {
+    width: 66%;
+    height: 66%;
+    object-fit: contain;
+  }
+  .pdp__badge {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--ink);
+    color: var(--white);
+    padding: 7px 14px;
+    border-radius: 30px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .pdp__badge svg {
+    color: var(--gold-light);
+  }
+
+  .pdp__details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .pdp__details h1 {
+    font-size: clamp(2rem, 6vw, 2.7rem);
+  }
+  .pdp__desc {
+    color: var(--ink-soft);
+    font-size: 15.5px;
+    line-height: 1.8;
+    max-width: 46ch;
+  }
+  .pdp__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 8px;
+  }
+  .pdp__trust {
+    list-style: none;
+    margin: 10px 0 0;
+    padding: 20px 0 0;
+    border-top: 1px solid var(--line);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .pdp__trust li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13.5px;
+    color: var(--ink-soft);
+  }
+  .pdp__trust svg {
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+  .pdp__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: var(--ink-soft);
+  }
+  .pdp__back:hover {
+    color: var(--accent-dark);
+  }
+  .pdp__back :global(.pdp__back-icon) {
+    transform: rotate(180deg);
+  }
+
+  @media (min-width: 860px) {
+    .pdp {
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      padding: 48px 24px 110px;
+    }
+    .pdp__details {
+      justify-content: center;
+    }
+  }
+
+  /* ALSO LIKE */
+  .also-like {
+    padding: 0 24px 100px;
+  }
+  .also-like h2 {
+    font-size: clamp(1.6rem, 5vw, 2rem);
+    margin-bottom: 32px;
+    text-align: center;
+  }
+  .also-like__grid {
+    max-width: var(--container);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .also-card {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .also-card__image {
+    background: #f3e6de;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-bottom: 6px;
+  }
+  .also-card__image img {
+    width: 70%;
+    height: 70%;
+    object-fit: contain;
+    transition: transform 0.5s ease;
+  }
+  .also-card:hover .also-card__image img {
+    transform: scale(1.06);
+  }
+  .also-card__tag {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--accent-dark);
+  }
+  .also-card h3 {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  @media (min-width: 620px) {
+    .also-like__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

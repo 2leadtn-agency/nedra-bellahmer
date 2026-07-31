@@ -71,12 +71,12 @@ const norm = (s: string) =>
             data-category={p.category}
             data-name={norm(p.name)}
           >
-            <div class="product-card__image">
+            <a class="product-card__image" href={`/produits/${p.slug}`} aria-label={`Voir ${p.name}`}>
               <Image src={p.img} alt={p.name} width={512} height={512} quality={80} loading="lazy" />
-            </div>
+            </a>
             <div class="product-card__body">
               <span class="product-card__tag">{p.categoryLabel}</span>
-              <h3>{p.name}</h3>
+              <h3><a href={`/produits/${p.slug}`}>{p.name}</a></h3>
 
               <button
                 type="button"
@@ -406,6 +406,12 @@ const norm = (s: string) =>
       font-size: 20px;
       font-weight: 600;
       margin-bottom: 2px;
+    }
+    .product-card__body h3 a {
+      transition: color 0.2s ease;
+    }
+    .product-card__body h3 a:hover {
+      color: var(--accent-dark);
     }
 
     .product-card__toggle {
