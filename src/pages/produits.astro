@@ -1,94 +1,13 @@
 ---
+import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
 import Icon from "../components/Icon.astro";
+import { categories, products } from "../data/products";
 
 const waFor = (product: string) =>
   `https://wa.me/21628897456?text=${encodeURIComponent(
     `Bonjour, je suis intéressé(e) par : ${product}. Est-il disponible ?`
   )}`;
-
-const categories = [
-  { slug: "tous", label: "Tous" },
-  { slug: "parfums", label: "Parfums" },
-  { slug: "bain-corps", label: "Bain & Corps" },
-  { slug: "soins-visage", label: "Soins Visage" },
-  { slug: "soins-intimes", label: "Soins Intimes" },
-];
-
-const products = [
-  {
-    name: "VIF Code Violet",
-    category: "parfums",
-    categoryLabel: "Parfums",
-    desc: "Un floral poudré et féminin, pour une signature tout en douceur.",
-    img: "/produit-vif-code-violet.png",
-    feature: false,
-  },
-  {
-    name: "VIF Vintage Intense",
-    category: "parfums",
-    categoryLabel: "Parfums",
-    desc: "Une fragrance florale et boisée à l'élégance intemporelle, pensée pour lui.",
-    img: "/produit-vif-vintage-intense.png",
-    feature: true,
-  },
-  {
-    name: "VIF #TAG",
-    category: "parfums",
-    categoryLabel: "Parfums",
-    desc: "Une brume légère qui parfume cheveux et peau en un geste, fraîcheur immédiate.",
-    img: "/produit-vif-tag-parfum.png",
-    feature: false,
-  },
-  {
-    name: "Gel Douche Dream Sweet",
-    category: "bain-corps",
-    categoryLabel: "Bain & Corps",
-    desc: "Un gel douche gourmand et sucré, pour un moment de douceur sous la douche.",
-    img: "/produit-vif-gel-douche-dream-sweet.png",
-    feature: false,
-  },
-  {
-    name: "Gel Douche Floral Bath",
-    category: "bain-corps",
-    categoryLabel: "Bain & Corps",
-    desc: "Un gel douche fleuri et léger, pour une peau fraîche et délicatement parfumée.",
-    img: "/produit-vif-gel-douche-floral-bath.png",
-    feature: false,
-  },
-  {
-    name: "Gel Douche Grand Bleu",
-    category: "bain-corps",
-    categoryLabel: "Bain & Corps",
-    desc: "Un gel douche marin et vivifiant, pensé pour lui.",
-    img: "/produit-vif-gel-douche-grand-bleu.png",
-    feature: false,
-  },
-  {
-    name: "BB Cream",
-    category: "soins-visage",
-    categoryLabel: "Soins Visage",
-    desc: "Un soin teinté qui unifie le teint et protège au quotidien.",
-    img: "/produit-vif-bb-cream.png",
-    feature: false,
-  },
-  {
-    name: "Concentré Hydratant Ageless",
-    category: "soins-visage",
-    categoryLabel: "Soins Visage",
-    desc: "Un concentré anti-âge qui hydrate en profondeur pour un teint repulpé et lumineux.",
-    img: "/produit-vif-concentre-hydratant-ageless.png",
-    feature: false,
-  },
-  {
-    name: "Coffret Soin Intime",
-    category: "soins-intimes",
-    categoryLabel: "Soins Intimes",
-    desc: "Un rituel d'hygiène intime complet, formulé avec douceur, réuni dans un coffret dédié.",
-    img: "/produit-vif-coffret-soin-intime.png",
-    feature: true,
-  },
-];
 
 const norm = (s: string) =>
   s
@@ -153,7 +72,7 @@ const norm = (s: string) =>
             data-name={norm(p.name)}
           >
             <div class="product-card__image">
-              <img src={p.img} alt={p.name} loading="lazy" />
+              <Image src={p.img} alt={p.name} width={512} height={512} quality={80} loading="lazy" />
             </div>
             <div class="product-card__body">
               <span class="product-card__tag">{p.categoryLabel}</span>

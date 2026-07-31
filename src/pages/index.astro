@@ -1,6 +1,13 @@
 ---
+import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
 import Icon from "../components/Icon.astro";
+import imgHero from "../assets/hero-accueil-nedra-bellahmer.png";
+import imgCodeViolet from "../assets/products/produit-vif-code-violet.png";
+import imgVintageIntense from "../assets/products/produit-vif-vintage-intense.png";
+import imgFloralBath from "../assets/products/produit-vif-gel-douche-floral-bath.png";
+import imgConcentreHydratant from "../assets/products/produit-vif-concentre-hydratant-ageless.png";
+import imgCoffretSoinIntime from "../assets/products/produit-vif-coffret-soin-intime.png";
 
 const waHref = `https://wa.me/21628897456?text=${encodeURIComponent("Bonjour, je vous contacte depuis votre site")}`;
 ---
@@ -30,9 +37,12 @@ const waHref = `https://wa.me/21628897456?text=${encodeURIComponent("Bonjour, je
     </div>
 
     <div class="hero__image">
-      <img
-        src="/images/hero-accueil-nedra-bellahmer.jpg"
+      <Image
+        src={imgHero}
         alt="Mise en scène élégante de parfums et cosmétiques Nedra Bellahmer"
+        width={1920}
+        height={1047}
+        quality={75}
         loading="eager"
       />
       <a class="hero__floating-card reveal" href="/produits#soins-intimes">
@@ -56,28 +66,28 @@ const waHref = `https://wa.me/21628897456?text=${encodeURIComponent("Bonjour, je
 
     <div class="mosaic__grid">
       <a class="mosaic__tile mosaic__tile--lg reveal" href="/produits#parfums">
-        <img src="/produit-vif-vintage-intense.png" alt="Parfums VIF" />
+        <Image src={imgVintageIntense} alt="Parfums VIF" width={420} height={420} quality={75} loading="lazy" />
         <div class="mosaic__label">
           <span>Parfums</span>
           <Icon name="arrow-up-right" size={16} />
         </div>
       </a>
       <a class="mosaic__tile reveal reveal-delay-1" href="/produits#bain-corps">
-        <img src="/produit-vif-gel-douche-floral-bath.png" alt="Bain & Corps VIF" />
+        <Image src={imgFloralBath} alt="Bain & Corps VIF" width={420} height={420} quality={75} loading="lazy" />
         <div class="mosaic__label">
           <span>Bain &amp; Corps</span>
           <Icon name="arrow-up-right" size={16} />
         </div>
       </a>
       <a class="mosaic__tile reveal reveal-delay-2" href="/produits#soins-visage">
-        <img src="/produit-vif-concentre-hydratant-ageless.png" alt="Soins Visage VIF" />
+        <Image src={imgConcentreHydratant} alt="Soins Visage VIF" width={420} height={420} quality={75} loading="lazy" />
         <div class="mosaic__label">
           <span>Soins Visage</span>
           <Icon name="arrow-up-right" size={16} />
         </div>
       </a>
       <a class="mosaic__tile mosaic__tile--wide reveal reveal-delay-3" href="/produits#soins-intimes">
-        <img src="/produit-vif-coffret-soin-intime.png" alt="Soins Intimes VIF" />
+        <Image src={imgCoffretSoinIntime} alt="Soins Intimes VIF" width={420} height={420} quality={75} loading="lazy" />
         <div class="mosaic__label">
           <span>Soins Intimes</span>
           <Icon name="arrow-up-right" size={16} />
@@ -101,15 +111,23 @@ const waHref = `https://wa.me/21628897456?text=${encodeURIComponent("Bonjour, je
         </a>
       </div>
       <div class="spotlight__images reveal reveal-delay-2">
-        <img
+        <Image
           class="spotlight__img spotlight__img--front"
-          src="/produit-vif-code-violet.png"
+          src={imgCodeViolet}
           alt="Parfum VIF Code Violet"
+          width={300}
+          height={300}
+          quality={80}
+          loading="lazy"
         />
-        <img
+        <Image
           class="spotlight__img spotlight__img--back"
-          src="/produit-vif-vintage-intense.png"
+          src={imgVintageIntense}
           alt="Parfum VIF Vintage Intense"
+          width={300}
+          height={300}
+          quality={80}
+          loading="lazy"
         />
       </div>
     </div>
@@ -118,7 +136,7 @@ const waHref = `https://wa.me/21628897456?text=${encodeURIComponent("Bonjour, je
   <!-- GIFT FEATURE -->
   <section class="gift-feature container">
     <div class="gift-feature__image reveal">
-      <img src="/produit-vif-coffret-soin-intime.png" alt="Coffret Soin Intime VIF" />
+      <Image src={imgCoffretSoinIntime} alt="Coffret Soin Intime VIF" width={420} height={420} quality={80} loading="lazy" />
     </div>
     <div class="gift-feature__text reveal reveal-delay-1">
       <span class="eyebrow">Soins Intimes</span>

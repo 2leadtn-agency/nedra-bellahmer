@@ -1,6 +1,8 @@
 ---
+import { getImage } from "astro:assets";
 import Icon from "../components/Icon.astro";
 import WhatsAppButton from "../components/WhatsAppButton.astro";
+import heroImage from "../assets/hero-accueil-nedra-bellahmer.png";
 
 interface Props {
   title: string;
@@ -9,14 +11,17 @@ interface Props {
   ogImage?: string;
 }
 
-const {
-  title,
-  description,
-  path = "/",
-  ogImage = "/images/hero-accueil-nedra-bellahmer.jpg",
-} = Astro.props;
-
 const siteUrl = "https://nedra-bellahmer.vercel.app";
+
+const defaultOgImage = await getImage({
+  src: heroImage,
+  width: 1200,
+  height: 630,
+  format: "jpg",
+  quality: 75,
+});
+
+const { title, description, path = "/", ogImage = defaultOgImage.src } = Astro.props;
 
 const navLinks = [
   { href: "/", label: "Accueil" },
