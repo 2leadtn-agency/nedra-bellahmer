@@ -39,7 +39,7 @@ const CHATBOT_CONFIG = {
         display: flex;
         align-items: center;
         gap: 10px;
-        flex-direction: ${isLeft ? 'row' : 'row-reverse'};
+        flex-direction: ${isLeft ? 'row-reverse' : 'row'};
       }
       .lrcb-toggle {
         position: static;
